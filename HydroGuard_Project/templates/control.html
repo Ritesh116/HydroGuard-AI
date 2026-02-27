@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroGuard REMOTE</title>
+    
+    <style>
+        body {
+            
+            background-color: #000;
+            color: white;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 90vh;
+        }
+        h1 { margin-bottom: 40px; color: #58a6ff; }
+        
+        button {
+            width: 100%;
+            padding: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-leak {
+            background-color: #ff3333;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        .btn-leak:active { background-color: #cc0000; transform: scale(0.95); }
+
+        .btn-reset {
+            background-color: #2ea043;
+            color: white;
+            box-shadow: 0 0 20px rgba(46, 160, 67, 0.5);
+        }
+        .btn-reset:active { background-color: #238636; transform: scale(0.95); }
+
+        .status { margin-top: 20px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <h1><i class="fa-solid fa-gamepad"></i> ADMIN CONTROL</h1>
+
+    <button class="btn-leak" onclick="triggerLeak()">
+        ⚠️ TRIGGER LEAK
+    </button>
+
+    <button class="btn-reset" onclick="resetSystem()">
+        ✅ RESET SYSTEM
+    </button>
+
+    <div class="status" id="status-msg">Connected to Server</div>
+
+    <script>
+        function triggerLeak() {
+            fetch('/trigger-leak')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('status-msg').innerText = "COMMAND SENT: LEAK";
+                    document.getElementById('status-msg').style.color = "red";
+                });
+        }
+
+        function resetSystem() {
+            fetch('/reset')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('status-msg').innerText = "COMMAND SENT: RESET";
+                    document.getElementById('status-msg').style.color = "green";
+                });
+        }
+    </script>
+</body>
+</html>

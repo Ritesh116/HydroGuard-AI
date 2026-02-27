@@ -1,0 +1,231 @@
+/* --- 1. GLOBAL SETTINGS --- */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #050505;
+    /* Cyber Grid Background */
+    background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: #e6edf3;
+    font-family: 'Rajdhani', sans-serif;
+    height: 100vh; /* Force full height */
+    overflow: hidden; /* Stop the page from scrolling */
+    box-sizing: border-box;
+}
+
+/* --- 2. NAVBAR (Fixed Visibility) --- */
+.navbar {
+    height: 60px; /* Fixed height to prevent shifting */
+    background: rgba(10, 20, 30, 0.9);
+    border-bottom: 1px solid rgba(88, 166, 255, 0.3);
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #58a6ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(88, 166, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: #2ea043;
+    background: rgba(46, 160, 67, 0.1);
+    border: 1px solid #2ea043;
+    padding: 5px 15px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(46, 160, 67, 0.2);
+}
+
+.dot {
+    height: 8px; width: 8px;
+    background-color: #2ea043;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    box-shadow: 0 0 5px #2ea043;
+    animation: blink 2s infinite;
+}
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+/* --- 3. MAIN LAYOUT (Robust Grid) --- */
+.container {
+    display: grid;
+    /* Use Fraction Units (fr) instead of % to fix scrolling */
+    grid-template-columns: 2fr 1fr; 
+    gap: 20px;
+    padding: 20px;
+    height: calc(100vh - 60px); /* Exact math to fit screen */
+}
+
+/* --- 4. CARDS (Glowing Tech Look) --- */
+.card {
+    background: rgba(18, 24, 34, 0.6);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Corner Glow Effects */
+.card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
+    border-top: 2px solid #58a6ff; border-left: 2px solid #58a6ff; border-radius: 8px 0 0 0;
+}
+.card::after {
+    content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
+    border-bottom: 2px solid #58a6ff; border-right: 2px solid #58a6ff; border-radius: 0 0 8px 0;
+}
+
+h2, h3 {
+    margin: 0 0 10px 0;
+    color: #8b949e;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- 5. MAP --- */
+.map-section {
+    height: 100%; /* Fill the left column */
+    overflow: hidden;
+}
+#map {
+    flex-grow: 1;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #30363d;
+}
+
+/* --- 6. RIGHT COLUMN & TABLE --- */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    overflow: hidden; /* Stop vertical scroll */
+}
+
+.zone-table { width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; }
+.zone-table th {
+    text-align: left; color: #58a6ff; padding: 8px; border-bottom: 1px solid #30363d; font-size: 12px;
+}
+/* Ensure table text is visible */
+.zone-table td { 
+    padding: 8px; 
+    border-bottom: 1px solid rgba(255,255,255,0.05); 
+    font-size: 13px; 
+    color: #e6edf3; 
+}
+
+/* --- 7. GRAPH --- */
+.graph-section {
+    flex-grow: 1; /* Allows graph to fill empty space */
+    min-height: 0; /* Critical for preventing overflow */
+}
+.chart-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+/* --- 8. ALERT BOX --- */
+.alert-card {
+    background: linear-gradient(135deg, rgba(62, 21, 21, 0.9), rgba(30, 10, 10, 0.9));
+    border: 1px solid #ff3333;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    animation: danger-pulse 1.5s infinite alternate;
+    min-height: 80px; /* Fixed height so it doesn't squash */
+}
+
+@keyframes danger-pulse {
+    from { box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); border-color: #ff3333; }
+    to { box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); border-color: #ff0000; }
+}
+
+.alert-icon { font-size: 28px; color: #ff3333; }
+.alert-info strong { color: #ffcece; font-size: 16px; display: block; margin-bottom: 5px; }
+.money-stats { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #fff; display: flex; gap: 20px; }
+.money-stats i { color: #58a6ff; }
+/* Make the Map Header look like a proper Title */
+.map-section h2 {
+    border-bottom: 1px solid rgba(88, 166, 255, 0.2);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* --- FIX FOR DASHBOARD SCROLLING --- */
+body {
+    overflow-y: auto !important; /* Ensures the page doesn't get locked */
+}
+
+.container {
+    align-items: flex-start !important; /* Prevents the map from stretching weirdly */
+}
+
+.right-column {
+    max-height: calc(100vh - 80px); /* Stops exactly at the bottom of the screen */
+    overflow-y: auto !important;    /* TURNS ON THE SCROLLBAR! */
+    padding-right: 15px;            /* Gives the scrollbar some breathing room */
+}
+
+/* --- OPTIONAL: Make the scrollbar look cool and hacker-themed --- */
+.right-column::-webkit-scrollbar {
+    width: 8px;
+}
+.right-column::-webkit-scrollbar-track {
+    background: #0d1117; 
+    border-radius: 4px;
+}
+.right-column::-webkit-scrollbar-thumb {
+    background: #30363d; 
+    border-radius: 4px;
+}
+.right-column::-webkit-scrollbar-thumb:hover {
+    background: #58a6ff; /* Turns blue when you hover over it */
+}
+/* --- FIX FOR DASHBOARD SCROLLING --- */
+body {
+    overflow-y: auto !important;
+}
+.container {
+    align-items: flex-start !important;
+}
+.right-column {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto !important; 
+    padding-right: 15px;      
+}
+
+/* Custom hacker-themed scrollbar */
+.right-column::-webkit-scrollbar { width: 8px; }
+.right-column::-webkit-scrollbar-track { background: #0d1117; border-radius: 4px; }
+.right-column::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+.right-column::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
